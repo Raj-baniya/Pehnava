@@ -5,6 +5,8 @@ import { Helmet } from 'react-helmet';
 import { Eye, Camera, Smartphone, Monitor, Play, Settings, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
+import { LaserFlow } from '@/components/ui/LaserFlow';
+import '@/components/ui/LaserFlow.css';
 
 const VRTrialsPage = () => {
   const [selectedDevice, setSelectedDevice] = useState('vr');
@@ -103,7 +105,7 @@ const VRTrialsPage = () => {
         <meta name="description" content="Experience the future of fashion with VR and AR trials. Try on ethnic wear virtually using cutting-edge technology at Pehenava." />
       </Helmet>
 
-      <div className="pt-20 min-h-screen sparkling-black-bg">
+      <LaserFlow className="pt-20 min-h-screen sparkling-black-bg">
         {/* Hero Section */}
         <section className="py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -212,7 +214,7 @@ const VRTrialsPage = () => {
                         {experience.category}
                       </span>
                     </div>
-                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+.                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <Button
                         size="lg"
                         className="bg-white/90 text-purple-700 hover:bg-white rounded-full"
@@ -350,7 +352,7 @@ const VRTrialsPage = () => {
             </motion.div>
           </div>
         </section>
-      </div>
+      </LaserFlow>
     </>
   );
 };
