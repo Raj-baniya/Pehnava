@@ -1,0 +1,122 @@
+[
+  {
+    "id": 101,
+    "name": "Azure Blue Jaipuri Kurta",
+    "description": "A vibrant Jaipuri print kurta in a refreshing azure blue. Made from pure cotton, perfect for casual outings and daily wear. Features a classic round neck and three-quarter sleeves.",
+    "price": "1899",
+    "image": "/images/kurtas/kurta-blue.jpg",
+    "category": "Casual Wear",
+    "sizes": ["S", "M", "L", "XL"],
+    "colors": ["Azure Blue", "White"]
+  },
+  {
+    "id": 102,
+    "name": "Regal Maroon Silk Kurta Set",
+    "description": "An elegant silk blend kurta set in a deep maroon. Comes with a churidar and is ideal for festive occasions and weddings. Embellished with fine gold thread work.",
+    "price": "4299",
+    "image": "/images/kurtas/kurta-maroon.jpg",
+    "category": "Festive Wear",
+    "sizes": ["M", "L", "XL", "XXL"],
+    "colors": ["Maroon", "Gold"]
+  },
+  {
+    "id": 103,
+    "name": "Classic White Chikankari Kurta",
+    "description": "A timeless hand-embroidered Chikankari kurta in pristine white. Crafted from soft muslin cloth, it offers both comfort and elegance for any event.",
+    "price": "3499",
+    "image": "/images/kurtas/kurta-white.jpg",
+    "category": "Traditional Wear",
+    "sizes": ["S", "M", "L"],
+    "colors": ["White"]
+  },
+  {
+    "id": 104,
+    "name": "Emerald Green Brocade Kurta",
+    "description": "A luxurious brocade kurta in a stunning emerald green. The rich texture and royal sheen make it a perfect choice for grand celebrations.",
+    "price": "5999",
+    "image": "/images/kurtas/kurta-green.jpg",
+    "category": "Wedding Wear",
+    "sizes": ["L", "XL", "XXL"],
+    "colors": ["Emerald Green"]
+  },
+  {
+    "id": 105,
+    "name": "Sunshine Yellow Bandhani Kurta",
+    "description": "Brighten up your wardrobe with this cheerful Bandhani print kurta. The lightweight georgette fabric drapes beautifully, making it ideal for daytime events.",
+    "price": "2399",
+    "image": "/images/kurtas/kurta-yellow.jpg",
+    "category": "Festive Wear",
+    "sizes": ["S", "M", "L", "XL"],
+    "colors": ["Yellow", "Orange"]
+  },
+  {
+    "id": 106,
+    "name": "Midnight Black Mirror Work Kurta",
+    "description": "A glamorous black kurta adorned with intricate mirror work. The contemporary design and flattering silhouette make it a showstopper for evening parties.",
+    "price": "4899",
+    "image": "/images/kurtas/kurta-black.jpg",
+    "category": "Party Wear",
+    "sizes": ["S", "M", "L"],
+    "colors": ["Black", "Silver"]
+  },
+  {
+    "id": 107,
+    "name": "Pastel Pink Linen Kurta",
+    "description": "A sophisticated and understated pastel pink kurta made from pure linen. Perfect for office wear or a semi-formal gathering, offering a blend of style and comfort.",
+    "price": "2199",
+    "image": "/images/kurtas/kurta-pink.jpg",
+    "category": "Formal Wear",
+    "sizes": ["M", "L", "XL"],
+    "colors": ["Pastel Pink"]
+  },
+  {
+    "id": 108,
+    "name": "Royal Blue Velvet Kurta",
+    "description": "A plush velvet kurta in a striking royal blue. The soft texture and deep color exude luxury, making it suitable for winter weddings and formal events.",
+    "price": "6499",
+    "image": "/images/kurtas/kurta-velvet.jpg",
+    "category": "Wedding Wear",
+    "sizes": ["L", "XL", "XXL"],
+    "colors": ["Royal Blue"]
+  },
+  {
+    "id": 109,
+    "name": "Earthy Brown Khadi Kurta",
+    "description": "An eco-friendly and stylish Khadi kurta in an earthy brown tone. Simple, elegant, and breathable, it is an excellent choice for conscious fashion lovers.",
+    "price": "1599",
+    "image": "/images/kurtas/kurta-brown.jpg",
+    "category": "Casual Wear",
+    "sizes": ["S", "M", "L", "XL"],
+    "colors": ["Brown", "Beige"]
+  },
+  {
+    "id": 110,
+    "name": "Crimson Red Zari Work Kurta Set",
+    "description": "A magnificent crimson red kurta set featuring heavy Zari embroidery. This ensemble is designed for brides and close family members for wedding ceremonies.",
+    "price": "8999",
+    "image": "/images/kurtas/kurta-red.jpg",
+    "category": "Bridal Wear",
+    "sizes": ["S", "M", "L"],
+    "colors": ["Crimson Red", "Gold"]
+  },
+  {
+    "id": 111,
+    "name": "Lavender Angrakha Style Kurta",
+    "description": "A trendy Angrakha style kurta in a lovely lavender shade. The cross-body tie-up and flared silhouette add a modern twist to a traditional design.",
+    "price": "2999",
+    "image": "/images/kurtas/kurta-lavender.jpg",
+    "category": "Contemporary Wear",
+    "sizes": ["S", "M", "L", "XL"],
+    "colors": ["Lavender"]
+  },
+  {
+    "id": 112,
+    "name": "Mustard Yellow A-Line Kurta",
+    "description": "A chic A-line kurta in a vibrant mustard yellow. The clean cut and solid color make it a versatile piece that can be styled in multiple ways.",
+    "price": "1999",
+    "image": "/images/kurtas/kurta-mustard.jpg",
+    "category": "Casual Wear",
+    "sizes": ["M", "L", "XL"],
+    "colors": ["Mustard Yellow"]
+  }
+]

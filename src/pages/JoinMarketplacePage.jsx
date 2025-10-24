@@ -1,47 +1,71 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet';
 import { Store, Upload, BarChart, Users, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
-import emailjs from 'emailjs-com'; // <-- Added import
 
 const JoinMarketplacePage = () => {
   const { toast } = useToast();
+  const [emailError, setEmailError] = useState('');
 
-  const handleSubmit = (e) => {
+  const validateEmail = (email) => {
+    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return regex.test(email);
+  };
+
+  const handleEmailChange = (e) => {
+    const email = e.target.value;
+    if (!validateEmail(email)) {
+      setEmailError('Please enter a valid email address.');
+    } else {
+      setEmailError('');
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
-    const brandName = form[0].value;
-    const email = form[1].value;
-    const productDesc = form[2].value;
+    const brandName = form.brandName.value;
+    const email = form.email.value;
+    const productDesc = form.productDesc.value;
 
-    // Send email using EmailJS
-    emailjs
-      .send(
-        'YOUR_SERVICE_ID', // Replace with your EmailJS service ID
-        'YOUR_TEMPLATE_ID', // Replace with your EmailJS template ID
-        {
-          to_email: email,
-          brand_name: brandName,
-          product_desc: productDesc,
-          message: "Your application for Joining Marketplace is under review."
+    if (!validateEmail(email)) {
+      setEmailError('Please enter a valid email address.');
+      toast({
+        title: "Invalid Email",
+        description: "Please enter a valid email address before submitting.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/send-application', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-        'YOUR_USER_ID' // Replace with your EmailJS public key
-      )
-      .then(() => {
+        body: JSON.stringify({ brandName, email, productDesc }),
+      });
+
+      if (response.ok) {
         toast({
           title: "Application Submitted!",
-          description: "A confirmation email has been sent to your address."
+          description: "Our team will review your application and get back to you soon.",
         });
         form.reset();
-      })
-      .catch(() => {
-        toast({
-          title: "Error",
-          description: "Failed to send confirmation email."
-        });
+      } else {
+        throw new Error('Something went wrong on the server.');
+      }
+    } catch (error) {
+      console.error('Form Submission Error:', error);
+      toast({
+        title: "Error",
+        description: "Failed to submit your application. Please try again later.",
+        variant: "destructive",
       });
+    }
   };
 
   return (
@@ -118,6 +142,7 @@ const JoinMarketplacePage = () => {
                   <input
                     type="text"
                     required
+                    name="brandName"
                     className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
                     placeholder="Your Brand Name"
                   />
@@ -127,15 +152,19 @@ const JoinMarketplacePage = () => {
                   <input
                     type="email"
                     required
+                    name="email"
+                    onChange={handleEmailChange}
                     className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
                     placeholder="you@example.com"
                   />
+                  {emailError && <p className="text-red-500 text-sm mt-1">{emailError}</p>}
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Tell us about your products</label>
                   <textarea
                     rows="4"
                     required
+                    name="productDesc"
                     className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
                     placeholder="Describe your unique collection..."
                   ></textarea>

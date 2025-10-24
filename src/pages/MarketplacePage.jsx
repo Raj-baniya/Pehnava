@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet';
-import { Search, Filter, MapPin, Star, Heart, ShoppingBag } from 'lucide-react';
+import { Star, Heart, ShoppingBag } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
+import { useCart } from '@/contexts/CartContext';
+import allProducts from '@/data/products.json';
 
 const OccasionFilter = ({ gender, onFilterChange }) => {
   const occasions = {
@@ -47,8 +49,8 @@ const MarketplacePage = () => {
   const location = useLocation();
   const [gender, setGender] = useState('women');
   const [occasion, setOccasion] = useState('All');
-  const [searchQuery, setSearchQuery] = useState('');
   const { toast } = useToast();
+  const { addToCart } = useCart();
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -56,39 +58,45 @@ const MarketplacePage = () => {
     setGender(genderParam);
   }, [location.search]);
 
-  const handleFeatureClick = (feature) => {
+  const handleAddToCart = (product) => {
+    addToCart(product);
     toast({
-      title: `🚧 ${feature} Coming Soon!`,
-      description: "This feature isn't implemented yet—but don't worry! You can request it in your next prompt! 🚀"
+      title: "Added to Cart",
+      description: `${product.name} has been added to your cart.`,
     });
   };
 
-  const products = {
-    women: [
-      { id: 1, name: "Royal Silk Saree", price: "₹25,000", imageUrl: "https://images.unsplash.com/photo-1635865165118-917ed9e20936", occasion: "Wedding" },
-      { id: 2, name: "Bridal Lehenga Set", price: "₹85,000", imageUrl: "https://images.unsplash.com/photo-1635865165118-917ed9e20936", occasion: "Wedding" },
-      { id: 3, name: "Festive Anarkali Suit", price: "₹15,000", imageUrl: "https://images.unsplash.com/photo-1635865165118-917ed9e20936", occasion: "Festive" },
-      { id: 4, name: "Designer Party Kurti", price: "₹3,500", imageUrl: "https://5.imimg.com/data5/HQ/AS/MY-37917758/reyon-double-layered-party-wear-kurti-1000x1000.jpg", occasion: "Party" },
-      { id: 5, name: "Casual Cotton Saree", price: "₹2,500", imageUrl: "https://www.yuvistyle.com/cdn/shop/files/77c93dd6-db9b-492d-9180-f4cac2ea5f12_800x.jpg?v=1717243587", occasion: "Casual" },
-    ],
-    men: [
-      { id: 6, name: "Embroidered Sherwani", price: "₹30,000", image: "A man wearing a grand embroidered sherwani", occasion: "Wedding" },
-      { id: 7, name: "Silk Kurta Set", price: "₹8,000", image: "A man in an elegant silk kurta for a festive event", occasion: "Festive" },
-      { id: 8, name: "Indo-Western Suit", price: "₹18,000", image: "A man in a stylish Indo-Western suit for a ceremony", occasion: "Ceremony" },
-      { id: 9, name: "Linen Kurta", price: "₹4,000", image: "A man wearing a comfortable linen kurta for a casual day", occasion: "Casual" },
-    ],
-    kids: [
-      { id: 10, name: "Boys Sherwani Set", price: "₹5,000", image: "A young boy in a cute sherwani for a wedding", occasion: "Wedding" },
-      { id: 11, name: "Girls Lehenga Choli", price: "₹6,500", image: "A little girl twirling in a festive lehenga choli", occasion: "Festive" },
-      { id: 12, name: "Birthday Princess Gown", price: "₹4,500", image: "A girl in a beautiful gown for her birthday party", occasion: "Birthday" },
-      { id: 13, name: "Casual Kurta Pajama", price: "₹2,000", image: "A boy in a comfortable kurta pajama set for casual wear", occasion: "Casual" },
-    ]
+  const getGenderSpecificProductIds = (gender) => {
+    if (gender === 'men') {
+      // Assumed product IDs for men
+      return [102, 104, 108, 109, 112];
+    }
+    if (gender === 'women') {
+      // Assumed all other products are for women
+      const menIds = [102, 104, 108, 109, 112];
+      return allProducts.map(p => p.id).filter(id => !menIds.includes(id));
+    }
+    // No products for kids in the current data
+    if (gender === 'kids') return [];
+    return [];
   };
 
-  const filteredProducts = (products[gender] || []).filter(product => {
-    const matchesOccasion = occasion === 'All' || product.occasion === occasion;
-    const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesOccasion && matchesSearch;
+  const genderProductIds = getGenderSpecificProductIds(gender);
+
+  const filteredProducts = allProducts.filter(product => {
+    const matchesGender = genderProductIds.includes(product.id);
+
+    const occasionMapping = {
+      'Wedding': ['Wedding Wear', 'Bridal Wear'],
+      'Festive': ['Festive Wear'],
+      'Party': ['Party Wear'],
+      'Casual': ['Casual Wear'],
+      'Ceremony': ['Traditional Wear', 'Formal Wear', 'Contemporary Wear']
+    };
+    
+    const matchesOccasion = occasion === 'All' || (occasionMapping[occasion] && occasionMapping[occasion].includes(product.category));
+    
+    return matchesGender && matchesOccasion;
   });
 
   return (
@@ -134,18 +142,17 @@ const MarketplacePage = () => {
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   whileHover={{ y: -10 }}
                   className="royal-card rounded-2xl overflow-hidden cursor-pointer group"
-                  onClick={() => handleFeatureClick(product.name)}
                 >
                   <div className="relative aspect-[4/5] bg-gradient-to-br from-amber-100 to-rose-100">
                     <img 
                       alt={product.name}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      src={product.imageUrl} />
+                      src={product.image} />
                     <div className="absolute top-4 right-4 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <Button size="sm" variant="ghost" className="bg-white/90 hover:bg-white text-gray-700 rounded-full p-2" onClick={(e) => { e.stopPropagation(); handleFeatureClick('Wishlist'); }}>
+                      <Button size="sm" variant="ghost" className="bg-white/90 hover:bg-white text-gray-700 rounded-full p-2" onClick={(e) => { e.stopPropagation(); toast({ title: 'Coming Soon!' }) }}>
                         <Heart className="h-4 w-4" />
                       </Button>
-                      <Button size="sm" variant="ghost" className="bg-white/90 hover:bg-white text-gray-700 rounded-full p-2" onClick={(e) => { e.stopPropagation(); handleFeatureClick('Quick Add to Cart'); }}>
+                      <Button size="sm" variant="ghost" className="bg-white/90 hover:bg-white text-gray-700 rounded-full p-2" onClick={(e) => { e.stopPropagation(); handleAddToCart(product); }}>
                         <ShoppingBag className="h-4 w-4" />
                       </Button>
                     </div>
@@ -154,9 +161,9 @@ const MarketplacePage = () => {
                     <h3 className="text-lg font-semibold font-playfair text-gray-800 truncate">
                       {product.name}
                     </h3>
-                    <p className="text-sm text-gray-500 mb-3">{product.occasion}</p>
+                    <p className="text-sm text-gray-500 mb-3">{product.category}</p>
                     <div className="flex items-center justify-between">
-                      <span className="text-xl font-bold text-amber-600">{product.price}</span>
+                      <span className="text-xl font-bold text-amber-600">₹{product.price}</span>
                       <div className="flex items-center">
                         <Star className="h-4 w-4 text-amber-400 fill-current" />
                         <span className="ml-1 text-sm text-gray-600">4.9</span>
@@ -170,6 +177,7 @@ const MarketplacePage = () => {
             {filteredProducts.length === 0 && (
               <div className="text-center py-16">
                 <p className="text-xl text-gray-500">No products found for this selection.</p>
+                 <p className="text-md text-gray-400">I've populated the store with a variety of kurtas, but the current product data doesn't include items for kids. I can add them if you provide the details!</p>
               </div>
             )}
           </div>

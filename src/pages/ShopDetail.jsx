@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Button } from '../components/ui/button';
 import initialMarkets from '../data/markets.json';
+import products from '../data/products.json'; // Import the new products data
 
 const ShopDetail = () => {
   const { shopId } = useParams();
@@ -10,15 +11,6 @@ const ShopDetail = () => {
   if (!shop) {
     return <div className="pt-20 text-center text-red-500">Shop not found!</div>;
   }
-
-  // Dummy data for products
-  const products = [
-    { name: 'Royal Kurta Set', price: '₹2,999' },
-    { name: 'Silk Sherwani', price: '₹6,499' },
-    { name: 'Casual Cotton Kurta', price: '₹1,299' },
-    { name: 'Embroidered Lehenga', price: '₹8,999' },
-    { name: 'Kids Ethnic Wear', price: '₹1,499' },
-  ];
 
   return (
     <div className="pt-24 bg-gradient-to-br from-red-50 to-amber-50 min-h-screen">
@@ -36,10 +28,10 @@ const ShopDetail = () => {
         <div className="mb-8">
           <h2 className="text-3xl font-semibold font-playfair text-red-900 border-b-2 border-amber-500/30 pb-3 mb-4">Our Products</h2>
           <ul className="space-y-3">
-            {products.map((product, index) => (
+            {products.map((product, index) => ( // Use the imported products data
               <li key={index} className="flex justify-between items-center p-3 bg-gradient-to-r from-white to-amber-50/50 rounded-md">
                 <span className="text-lg text-gray-800">{product.name}</span>
-                <span className="text-lg font-semibold text-red-900">{product.price}</span>
+                <span className="text-lg font-semibold text-red-900">₹{product.price}</span>
               </li>
             ))}
           </ul>

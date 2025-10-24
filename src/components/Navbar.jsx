@@ -22,15 +22,15 @@ const NavLink = ({ to, children }) => {
       to={to}
       className={`relative px-3 py-2 text-sm font-medium transition-colors duration-200 ${
         isActive
-          ? 'text-amber-700'
-          : 'text-gray-700 hover:text-amber-600'
+          ? 'text-amber-600 font-semibold'
+          : 'text-gray-600 hover:text-amber-600'
       }`}
     >
       {children}
       {isActive && (
         <motion.div
           layoutId="activeTab"
-          className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-amber-600 to-rose-600"
+          className="absolute bottom-0 left-0 right-0 h-0.5 bg-amber-600"
           initial={false}
           transition={{ type: "spring", stiffness: 500, damping: 30 }}
         />
@@ -58,12 +58,12 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed top-0 w-full z-50 royal-card border-b border-amber-200/30">
+    <nav className="fixed top-0 w-full z-[9999] bg-white shadow-lg">
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-24">
           <Link to="/" className="flex items-center space-x-3 group">
             <img 
-              src="images\WhatsApp Image 2025-10-08 at 3.05.52 PM.jpeg" 
+              src="images/WhatsApp Image 2025-10-08 at 3.05.52 PM.jpeg" 
               alt="Pehenava Logo - Premium Ethnic Wear" 
               className="h-16 w-auto group-hover:scale-105 transition-transform duration-300"
             />
@@ -75,21 +75,21 @@ const Navbar = () => {
             ))}
           </div>
 
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden md:flex items-center space-x-2">
             <Link to="/marketplace-locator">
-              <Button variant="ghost" size="sm" className="text-gray-700 hover:text-amber-600">
+              <Button variant="ghost" size="sm" className="text-gray-600 hover:text-amber-600 hover:bg-amber-50">
                 <MapPin className="h-4 w-4 mr-2" />
                 Locator
               </Button>
             </Link>
             <Link to="/personal-stylist">
-              <Button variant="ghost" size="sm" className="text-gray-700 hover:text-amber-600">
+              <Button variant="ghost" size="sm" className="text-gray-600 hover:text-amber-600 hover:bg-amber-50">
                 <Video className="h-4 w-4 mr-2" />
                 Stylist
               </Button>
             </Link>
             <Link to="/join-marketplace">
-              <Button variant="ghost" size="sm" className="text-gray-700 hover:text-amber-600">
+              <Button variant="ghost" size="sm" className="text-gray-600 hover:text-amber-600 hover:bg-amber-50">
                 <Store className="h-4 w-4 mr-2" />
                 Sell
               </Button>
@@ -97,7 +97,7 @@ const Navbar = () => {
             
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" className="rounded-full text-gray-700 hover:text-amber-600">
+                <Button variant="ghost" size="icon" className="rounded-full text-gray-600 hover:text-amber-600 hover:bg-amber-50">
                   <User className="h-5 w-5" />
                 </Button>
               </DropdownMenuTrigger>
@@ -123,7 +123,7 @@ const Navbar = () => {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <Button variant="ghost" size="icon" className="rounded-full text-gray-700 hover:text-amber-600" onClick={() => handleFeatureClick('Shopping Cart')}>
+            <Button variant="ghost" size="icon" className="rounded-full text-gray-600 hover:text-amber-600 hover:bg-amber-50" onClick={() => handleFeatureClick('Shopping Cart')}>
               <ShoppingBag className="h-5 w-5" />
             </Button>
           </div>
@@ -133,6 +133,7 @@ const Navbar = () => {
               variant="ghost"
               size="sm"
               onClick={() => setIsOpen(!isOpen)}
+              className="text-gray-600 hover:bg-amber-50"
             >
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </Button>
@@ -144,7 +145,7 @@ const Navbar = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="md:hidden py-4 border-t border-amber-200/30"
+            className="md:hidden py-4 border-t border-gray-200"
           >
             <div className="flex flex-col space-y-3">
               {navItems.map((item) => (
@@ -157,7 +158,7 @@ const Navbar = () => {
                   {item.name}
                 </Link>
               ))}
-              <div className="pt-3 mt-3 border-t border-amber-200/30 space-y-3">
+              <div className="pt-3 mt-3 border-t border-gray-200 space-y-3">
                  <Link to="/marketplace-locator" onClick={() => setIsOpen(false)} className="flex items-center px-3 py-2 text-base font-medium text-gray-700 hover:text-amber-600 hover:bg-amber-50 rounded-md">
                     <MapPin className="h-5 w-5 mr-3" /> Marketplace Locator
                  </Link>

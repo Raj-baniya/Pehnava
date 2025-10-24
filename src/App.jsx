@@ -8,7 +8,8 @@ import ModelApplicationPage from '@/pages/ModelApplicationPage';
 import JoinMarketplacePage from '@/pages/JoinMarketplacePage';
 import PersonalStylistPage from '@/pages/PersonalStylistPage';
 import MarketplaceLocator from '@/pages/MarketplaceLocator';
-import ShopDetail from '@/pages/ShopDetail'; // Import the new component
+import ShopDetail from '@/pages/ShopDetail';
+import Cart from '@/components/Cart'; // Import the Cart component
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
@@ -31,7 +32,8 @@ function App() {
           <Route path="/join-marketplace" element={<JoinMarketplacePage />} />
           <Route path="/personal-stylist" element={<PersonalStylistPage />} />
           <Route path="/marketplace-locator" element={<MarketplaceLocator />} />
-          <Route path="/shop/:shopId" element={<ShopDetail />} /> {/* Add the new route */}
+          <Route path="/shop/:shopId" element={<ShopDetail />} />
+          <Route path="/cart" element={<Cart />} /> {/* Add the new cart route */}
         </Routes>
       </main>
       
