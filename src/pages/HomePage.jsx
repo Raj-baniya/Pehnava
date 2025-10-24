@@ -17,7 +17,7 @@ const HomePage = () => {
   };
 
   const collections = [
-    { name: "Women's Wear", image: "Elegant woman in a beautiful traditional saree", imageUrl: "https://shaadiwish.com/blog/wp-content/uploads/2022/08/1-3.jpg", link: "/marketplace?gender=women" },
+    { name: "Women's Wear", image: "Elegant woman in a beautiful traditional saree", imageUrl: "https://i.pinimg.com/originals/e6/e4/6f/e6e46fab6a47e1091b1f48b83b076841.jpg", link: "/marketplace?gender=women" },
     { name: "Men's Wear", image: "Man dressed in a stylish sherwani for a wedding", imageUrl: "https://symphonyevents.com.au/wp-content/uploads/2023/02/1-1.jpg", link: "/marketplace?gender=men" },
     { name: "Kids' Wear", image: "Smiling child in a colorful ethnic outfit", imageUrl: "https://5.imimg.com/data5/SELLER/Default/2024/7/437085453/YM/YW/PW/224506717/whatsapp-image-2024-07-23-at-10-24-26-am-1-1000x1000.jpeg", link: "/marketplace?gender=kids" },
     { name: "Royal Accessories", image: "Close-up of intricate Kundan jewelry set", imageUrl: "https://i.etsystatic.com/17634941/r/il/7e4251/4935750649/il_1588xN.4935750649_dcbc.jpg", link: "/marketplace?category=accessories" }

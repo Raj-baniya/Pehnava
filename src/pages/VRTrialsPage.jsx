@@ -1,16 +1,16 @@
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet';
-import { Eye, Camera, Smartphone, Monitor, Play, Settings, Download } from 'lucide-react';
+import { Eye, Smartphone, Monitor, Play, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
-import { LaserFlow } from '@/components/ui/LaserFlow';
-import '@/components/ui/LaserFlow.css';
+import LaserFlow from '@/components/ui/LaserFlow';
 
 const VRTrialsPage = () => {
   const [selectedDevice, setSelectedDevice] = useState('vr');
   const { toast } = useToast();
+  const revealImgRef = useRef(null);
 
   const handleFeatureClick = (feature) => {
     if (feature === 'Start VR Experience') {
@@ -47,73 +47,65 @@ const VRTrialsPage = () => {
     }
   ];
 
-  const vrExperiences = [
-    {
-      id: 1,
-      name: "Royal Saree Collection",
-      image: "https://i.imgur.com/gJ9Nn6c.png",
-      duration: "5-10 min",
-      difficulty: "Beginner",
-      category: "Sarees"
-    },
-    {
-      id: 2,
-      name: "Classic Tartan Collection",
-      image: "https://i.imgur.com/gJ9Nn6c.png",
-      duration: "8-12 min",
-      difficulty: "Beginner",
-      category: "Tartan"
-    },
-    {
-      id: 3,
-      name: "Bridal Lehenga Showcase",
-      image: "https://i.imgur.com/sIWHCNo.jpeg",
-      duration: "10-15 min",
-      difficulty: "Intermediate",
-      category: "Lehengas"
-    },
-    {
-      id: 4,
-      name: "Festive Wear Experience",
-      image: "https://i.imgur.com/sIWHCNo.jpeg",
-      duration: "8-12 min",
-      difficulty: "Beginner",
-      category: "Festival Wear"
-    },
-    {
-      id: 5,
-      name: "Designer Studio Tour",
-      image: "https://i.imgur.com/gJ9Nn6c.png",
-      duration: "15-20 min",
-      difficulty: "Advanced",
-      category: "Behind the Scenes"
-    },
-    {
-      id: 6,
-      name: "Mandala Collection",
-      image: "https://i.imgur.com/sIWHCNo.jpeg",
-      duration: "5-10 min",
-      difficulty: "Beginner",
-      category: "Mandala"
-    }
-  ];
-
   return (
     <>
       <Helmet>
         <title>VR & AR Trials - Virtual Try-On Experience | Pehenava</title>
         <meta name="description" content="Experience the future of fashion with VR and AR trials. Try on ethnic wear virtually using cutting-edge technology at Pehenava." />
       </Helmet>
-
-      <LaserFlow className="pt-20 min-h-screen sparkling-black-bg">
-        {/* Hero Section */}
-        <section className="py-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div 
+        style={{ 
+          height: '800px', 
+          position: 'relative', 
+          overflow: 'hidden',
+          backgroundColor: '#060010'
+        }}
+        onMouseMove={(e) => {
+          const rect = e.currentTarget.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const el = revealImgRef.current;
+          if (el) {
+            el.style.setProperty('--mx', `${x}px`);
+            el.style.setProperty('--my', `${y + rect.height * 0.5}px`);
+          }
+        }}
+        onMouseLeave={() => {
+          const el = revealImgRef.current;
+          if (el) {
+            el.style.setProperty('--mx', '-9999px');
+            el.style.setProperty('--my', '-9999px');
+          }
+        }}
+      >
+        <LaserFlow
+          horizontalBeamOffset={0.0}
+          verticalBeamOffset={0.2}
+          color="#FF79C6"
+        />
+        
+        <div style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: '86%',
+          height: '40%',
+          backgroundColor: '#060010',
+          borderRadius: '20px',
+          border: '2px solid #FF79C6',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          color: 'white',
+          zIndex: 6
+        }}>
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-center mb-16 dark-glass-effect p-8 rounded-2xl"
+              className="text-center"
             >
               <h1 className="text-4xl md:text-6xl font-playfair font-bold text-white mb-6 premium-text-shadow">
                 VR & AR Trials
@@ -130,13 +122,38 @@ const VRTrialsPage = () => {
                 Start VR Experience
               </Button>
             </motion.div>
+        </div>
 
-            {/* Device Selection */}
+        <img
+          ref={revealImgRef}
+          src="https://i.imgur.com/gJ9Nn6c.png"
+          alt="Reveal effect"
+          style={{
+            position: 'absolute',
+            width: '100%',
+            top: '-50%',
+            zIndex: 5,
+            mixBlendMode: 'lighten',
+            opacity: 0.3,
+            pointerEvents: 'none',
+            '--mx': '-9999px',
+            '--my': '-9999px',
+            WebkitMaskImage: 'radial-gradient(circle at var(--mx) var(--my), rgba(255,255,255,1) 0px, rgba(255,255,255,0.95) 60px, rgba(255,255,255,0.6) 120px, rgba(255,255,255,0.25) 180px, rgba(255,255,255,0) 240px)',
+            maskImage: 'radial-gradient(circle at var(--mx) var(--my), rgba(255,255,255,1) 0px, rgba(255,255,255,0.95) 60px, rgba(255,255,255,0.6) 120px, rgba(255,255,255,0.25) 180px, rgba(255,255,255,0) 240px)',
+            WebkitMaskRepeat: 'no-repeat',
+            maskRepeat: 'no-repeat'
+          }}
+        />
+      </div>
+      <div style={{ backgroundColor: '#060010', color: 'white', paddingTop: '4rem', paddingBottom: '4rem' }}>
+        {/* Device Selection */}
+        <section className="py-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16"
+              className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12"
             >
               {devices.map((device) => (
                 <div
@@ -173,97 +190,15 @@ const VRTrialsPage = () => {
           </div>
         </section>
 
-        {/* VR Experiences */}
-        <section className="py-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="text-center mb-16 dark-glass-effect p-8 rounded-2xl"
-            >
-              <h2 className="text-4xl md:text-5xl font-playfair font-bold text-white mb-6 premium-text-shadow">
-                VR Experiences
-              </h2>
-              <p className="text-xl text-white/90 max-w-3xl mx-auto">
-                Choose from our curated VR experiences designed to showcase our premium ethnic wear collections.
-              </p>
-            </motion.div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {vrExperiences.map((experience, index) => (
-                <motion.div
-                  key={experience.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  whileHover={{ y: -10 }}
-                  className="dark-glass-effect rounded-2xl overflow-hidden cursor-pointer group"
-                  onClick={() => handleFeatureClick(experience.name)}
-                >
-                  <div className="aspect-video bg-black/50 relative overflow-hidden">
-                    <img  
-                      alt={experience.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                     src={experience.image} />
-                    <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300"></div>
-                    <div className="absolute top-4 right-4">
-                      <span className="bg-black/50 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                        {experience.category}
-                      </span>
-                    </div>
-.                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <Button
-                        size="lg"
-                        className="bg-white/90 text-purple-700 hover:bg-white rounded-full"
-                      >
-                        <Play className="h-5 w-5 mr-2" />
-                        Start Experience
-                      </Button>
-                    </div>
-                  </div>
-                  
-                  <div className="p-6">
-                    <h3 className="text-xl font-semibold font-playfair mb-3 text-white premium-text-shadow">
-                      {experience.name}
-                    </h3>
-                    <div className="flex items-center justify-between text-sm text-white/70 mb-4">
-                      <span className="flex items-center">
-                        <Camera className="h-4 w-4 mr-1" />
-                        {experience.duration}
-                      </span>
-                      <span className="flex items-center">
-                        <Settings className="h-4 w-4 mr-1" />
-                        {experience.difficulty}
-                      </span>
-                    </div>
-                    <Button
-                      className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleFeatureClick('Launch VR Experience');
-                      }}
-                    >
-                      Launch Experience
-                    </Button>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
         {/* How It Works */}
-        <section className="py-20">
+        <section className="py-8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
-              className="text-center mb-16 dark-glass-effect p-8 rounded-2xl"
+              className="text-center mb-12"
             >
               <h2 className="text-4xl md:text-5xl font-playfair font-bold text-white mb-6 premium-text-shadow">
                 How It Works
@@ -315,14 +250,14 @@ const VRTrialsPage = () => {
         </section>
 
         {/* CTA Section */}
-        <section className="py-20">
+        <section className="py-8">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
-              className="space-y-8 dark-glass-effect p-8 rounded-2xl"
+              className="space-y-8"
             >
               <h2 className="text-4xl md:text-5xl font-playfair font-bold text-white premium-text-shadow">
                 Ready to Experience the Future?
@@ -352,7 +287,7 @@ const VRTrialsPage = () => {
             </motion.div>
           </div>
         </section>
-      </LaserFlow>
+      </div>
     </>
   );
 };

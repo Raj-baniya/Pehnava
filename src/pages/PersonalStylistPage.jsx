@@ -8,7 +8,7 @@ const PersonalStylistPage = () => {
 
   const stylists = [
     { name: "Anjali Verma", specialty: "Bridal & Wedding", image: "https://castyou-website.sgp1.digitaloceanspaces.com/2019/08/IMG-20190708-WA0045.jpg" },
-    { name: "Rohan Mehra", specialty: "Men's Festive Wear", image: "https://shaadiwish.com/blog/wp-content/uploads/2024/11/Vaibhav-Keshwani.jpg" },
+    { name: "Rohan Mehra", specialty: "Men's Festive Wear", image: "https://media.gettyimages.com/id/637540630/fr/photo/beau-touriste.jpg?s=612x612&w=0&k=20&c=NIAIrPA8ObAW02xSVowS5mQIKW53E7UVh8tsTSXjO0I=" },
     { name: "Priya Desai", specialty: "Contemporary & Fusion", image: "https://pearlwebsitecdn-prod-d8bgbfaqbgcghcfw.a01.azurefd.net/drupal-files/inline-images/Eka%20Lakhani_0.jpg" },
   ];
 

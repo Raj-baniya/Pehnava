@@ -116,15 +116,15 @@ const MarketplaceLocator = () => {
                 ref={el => { if(el) markerRefs.current[market.id] = el; }}
               >
                 <Popup>
-                    <div className="w-64 -m-4">
-                        <div className="p-4">
-                            <h3 className="text-lg font-bold text-maroon-800">{market.name}</h3>
-                            <p className="text-sm text-gray-600 mb-2">{market.city}, {market.country}</p>
-                            <p className="text-xs text-gray-700 mb-3">{market.description}</p>
-                            <Button onClick={() => handleOpenShopsPanel(market)} className="w-full bg-gold-500 hover:bg-gold-600 text-white text-sm h-9">
-                                View Shops
-                            </Button>
-                        </div>
+                  <div className="w-64 -m-4 rounded-lg">
+                    <div className="p-4 bg-gradient-to-br from-red-50 to-amber-50 rounded-lg">
+                        <h3 className="text-lg font-bold font-playfair text-red-900">{market.name}</h3>
+                        <p className="text-sm text-gray-700 mb-2">{market.city}, {market.country}</p>
+                        <p className="text-xs text-gray-600 mb-3">{market.description}</p>
+                        <Button onClick={() => handleOpenShopsPanel(market)} className="w-full bg-gradient-to-r from-amber-500 to-rose-500 hover:from-amber-600 hover:to-rose-600 text-white text-sm h-9 rounded-md shadow-lg">
+                            View Shops
+                        </Button>
+                    </div>
                   </div>
                 </Popup>
               </Marker>
